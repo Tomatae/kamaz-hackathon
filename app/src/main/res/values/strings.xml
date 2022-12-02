@@ -13,15 +13,17 @@
     <string name="stop_file">Stop File</string>
     <string name="pause">Pause</string>
     <string name="continueRecognition">Continue</string>
-    <string name="app_name">My kamazz</string>
-    <string name="buttonsett">настройки</string>
-    <string name="buttonmain">главное меню</string>
-    <string name="buttonlang">выбрать язык</string>
-    <string name="buttonlangtoset">настройки</string>
-    <string name="buttonspecial">специальные возможности</string>
-    <string name="buttoncomm">настройки команд</string>
-    <string name="settname">Настройки</string>
-    <string name="paketiyazikov">Пакеты языков</string>
-    <string name="spezialnievozmoghnosti">Специальные возможности</string>
-    <string name="dobavleniecomm">Добавление команд</string>
+    <string name="app_name">MY.KAMAZ</string>
+    <string name="button_sett">Settings</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_main">Main Menu</string>
+    <string name="buttonlang">Language</string>
+    <string name="buttonlangtoset">Settings</string>
+    <string name="buttonspecial">Special Abilities</string>
+    <string name="buttoncomm">Command Settings</string>
+    <string name="settname">Settings</string>
+    <string name="paketiyazikov">Language Models</string>
+    <string name="spezialnievozmoghnosti">Special Abilities</string>
+    <string name="dobavleniecomm">Add Commands</string>
+
 </resources>

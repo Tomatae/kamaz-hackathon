@@ -65,6 +65,16 @@ public class VoskActivity extends Activity implements
         startActivity(intent);
     }
 
+    public void settingsActivity(View v) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void cameraActivity(View v) {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -92,7 +102,6 @@ public class VoskActivity extends Activity implements
         cr.createSheet();
     }
 
-
     private void initModel() {
         StorageService.unpack(this, "model-en-us", "model",
                 (model) -> {
@@ -101,7 +110,6 @@ public class VoskActivity extends Activity implements
                 },
                 (exception) -> setErrorState("Failed to unpack the model" + exception.getMessage()));
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -265,7 +273,6 @@ public class VoskActivity extends Activity implements
             }
         }
     }
-
 
     private void pause(boolean checked) {
         if (speechService != null) {

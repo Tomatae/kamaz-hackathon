@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="recognize_file">Распознать файл</string>
+    <string name="recognize_microphone">Слушать микрофон</string>
+    <string name="stop_microphone">Остановить микрофон</string>
+    <string name="preparing">Подготовка к распознованию\n</string>
+    <string name="ready">Готов\n</string>
+    <string name="failed">Неудалось инициализировать модель распознования речи %s\n</string>
+    <string name="elapsed">Result %s elapsed %d milliseconds\n</string>
+    <string name="starting">Начинаем\n</string>
+    <string name="say_something">Скажите что-нибудь\n</string>
+    <string name="stop_file">Прекратить распознование файла</string>
+    <string name="pause">Пауза</string>
+    <string name="continueRecognition">Продолжить</string>
+    <string name="app_name">MY.KAMAZ</string>
+    <string name="button_sett">Настройки</string>
+    <string name="button_camera">Камера</string>
+    <string name="button_main">Главное меню</string>
+    <string name="buttonlang">Смена языка</string>
+    <string name="buttonlangtoset">настройки</string>
+    <string name="buttonspecial">Cпециальные возможности</string>
+    <string name="buttoncomm">Настройки команд</string>
+    <string name="settname">Настройки</string>
+    <string name="paketiyazikov">Пакеты языков</string>
+    <string name="spezialnievozmoghnosti">Специальные возможности</string>
+    <string name="dobavleniecomm">Добавление команд</string>
+
+</resources>
