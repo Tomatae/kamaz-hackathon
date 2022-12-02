@@ -4,9 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class VoiceCommandRecognition {
 
@@ -17,9 +19,16 @@ public class VoiceCommandRecognition {
 
     public void createSheet() {
         commandExamples.put(0, Arrays.asList("сколько времени", "который час"));
-        commandExamples.put(1, Arrays.asList("закрой окно", "дует"));
-        commandExamples.put(2, Arrays.asList("открой окно", "душно"));
-        commandExamples.put(3, Arrays.asList("заблокируй дверь", "закройся", "закрой дверь", "закрой замок"));
+        commandExamples.put(1, Arrays.asList("закрой правое окно", "прикрой правое окно"));
+        commandExamples.put(2, Arrays.asList("открой правое окно", "приоткрой правое окно"));
+        commandExamples.put(3, Arrays.asList("закрой левое окно", "прикрой левое окно"));
+        commandExamples.put(4, Arrays.asList("открой левое окно", "приоткрой левое окно"));
+        commandExamples.put(5, Arrays.asList("дворники", "переключи дворники"));
+        commandExamples.put(6, Arrays.asList("включи дворники", "протри стекло"));
+        commandExamples.put(7, Arrays.asList("выключи дворники", "стекло чистое", "выключи дворники"));
+        commandExamples.put(8, Arrays.asList("музыку потише", "убавь громкост", "убавь музыку"));
+        commandExamples.put(9, Arrays.asList("музыку погромче", "прибавь громкост", "добавь громкост", "прибавь музыку", "добавь музыку"));
+        commandExamples.put(10, Arrays.asList("заблокируй двери", "закрой замок", "заблокируй замок"));
     }
 
     public void checkSimilarities(int key, String stored, String received) {
@@ -57,6 +66,15 @@ public class VoiceCommandRecognition {
                 checkSimilarities(k, e, line);
             }
         }
+    }
+
+    public void addCommandExample(int commandId, String commandString) {
+        List<String> commandStringList = Collections.singletonList(commandString);
+        if (commandExamples.containsKey(commandId)) {
+            commandStringList.addAll(Objects.requireNonNull(commandExamples.get(commandId)));
+            commandExamples.remove(commandId);
+        }
+        commandExamples.put(commandId, commandStringList);
     }
 
     public void recognizeCommand(String line){
