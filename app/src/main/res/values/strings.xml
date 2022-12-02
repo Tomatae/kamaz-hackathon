@@ -22,5 +22,6 @@
     <string name="button_command_settings">Command Settings</string>
     <string name="spezialnievozmoghnosti">Special Abilities</string>
     <string name="dobavleniecomm">Add Commands</string>
+    <string name="apply">Apply</string>
 
 </resources>
