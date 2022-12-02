@@ -25,6 +25,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import org.vosk.LibVosk;
 import org.vosk.LogLevel;
 import org.vosk.Model;
@@ -36,10 +40,6 @@ import org.vosk.android.StorageService;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 public class VoskActivity extends Activity implements
         RecognitionListener {
@@ -95,6 +95,8 @@ public class VoskActivity extends Activity implements
 
         cr = new VoiceCommandRecognition();
         cr.createSheet();
+
+        cr.shareContext(this.getBaseContext());
     }
 
     private void initModel() {
@@ -158,7 +160,7 @@ public class VoskActivity extends Activity implements
         resultView.append(hypothesis + "\n");
     }
 
-    public void recognizeCommand(String line){
+    public void recognizeCommand(String line) {
         cr.recognizeCommand(line);
     }
 

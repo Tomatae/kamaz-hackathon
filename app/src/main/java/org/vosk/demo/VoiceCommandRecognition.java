@@ -1,5 +1,7 @@
 package org.vosk.demo;
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,6 +18,7 @@ public class VoiceCommandRecognition {
     public String keyword = "камаз";
     private int iPoint;
     private boolean ended = true;
+    public Context context;
 
     public void createSheet() {
         commandExamples.put(0, Arrays.asList("сколько времени", "который час"));
@@ -38,7 +41,7 @@ public class VoiceCommandRecognition {
             iPoint = received.indexOf(w, iPoint);
         }
         System.out.println("Received a matching phrase");
-        ActionNotifications.spreadAction(key);
+        ActionNotifications.spreadAction(key, context);
 
     }
 
@@ -57,7 +60,7 @@ public class VoiceCommandRecognition {
         return true;
     }
 
-    public void lookThroughCommandExamples(String line){
+    public void lookThroughCommandExamples(String line) {
         if (!updateIndexPointer(line)) return;
         for (Map.Entry<Integer, List<String>> entry : commandExamples.entrySet()) {
             Integer k = entry.getKey();
@@ -77,10 +80,15 @@ public class VoiceCommandRecognition {
         commandExamples.put(commandId, commandStringList);
     }
 
-    public void recognizeCommand(String line){
+    public void shareContext(Context c) {
+        context = c;
+    }
+
+    public void recognizeCommand(String line) {
         try {
             JSONObject jsonObject = new JSONObject(line);
-            if (jsonObject.has("partial")) lookThroughCommandExamples(jsonObject.get("partial").toString());
+            if (jsonObject.has("partial"))
+                lookThroughCommandExamples(jsonObject.get("partial").toString());
             if (jsonObject.has("text")) {
                 ended = true;
                 lookThroughCommandExamples(jsonObject.get("text").toString());
