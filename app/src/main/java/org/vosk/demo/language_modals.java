@@ -13,7 +13,7 @@ public class language_modals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_modals);
     }
-    public void gosett(View v){
+    public void goset(View v){
         Intent intent = new Intent(this, setting.class);
         startActivity(intent);
 

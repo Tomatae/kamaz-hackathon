@@ -25,6 +25,10 @@
             android:name=".setting"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".language_modals"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

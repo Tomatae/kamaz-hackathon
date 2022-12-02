@@ -60,8 +60,8 @@ public class VoskActivity extends Activity implements
 
     private VoiceCommandRecognition cr;
 
-    public void startlanguage(View v) {
-        Intent intent = new Intent(this, language_modals.class);
+    public void gosett(View v) {
+        Intent intent = new Intent(this, setting.class);
         startActivity(intent);
     }
 
