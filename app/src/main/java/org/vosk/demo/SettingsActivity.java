@@ -10,26 +10,26 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_settings);
     }
 
-    public void goMain(View v) {
+    public void mainActivity(View v) {
         Intent intent = new Intent(this, VoskActivity.class);
         startActivity(intent);
     }
 
-    public void startlanguage(View v) {
+    public void languageModelsActivity(View v) {
         Intent intent = new Intent(this, LanguageModelsActivity.class);
         startActivity(intent);
     }
 
-    public void startspecial(View v) {
+    public void specialAbbilitiesActivity(View v) {
         Intent intent = new Intent(this, SpecialAbbilitiesActivity.class);
         startActivity(intent);
     }
 
-    public void startcomm(View v) {
-        Intent intent = new Intent(this, AdditionalCommandSettings.class);
+    public void additionalCommandSettingsActivity(View v) {
+        Intent intent = new Intent(this, AdditionalCommandSettingsActivity.class);
         startActivity(intent);
     }
 }
