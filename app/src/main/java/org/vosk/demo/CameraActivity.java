@@ -13,19 +13,20 @@ package org.vosk.demo;
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+
+import androidx.activity.ComponentActivity;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.exifinterface.media.ExifInterface;
-// ContentResolver dependency
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.mediapipe.formats.proto.LandmarkProto.Landmark;
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmark;
 import com.google.mediapipe.solutioncore.CameraInput;
@@ -35,11 +36,10 @@ import com.google.mediapipe.solutions.hands.HandLandmark;
 import com.google.mediapipe.solutions.hands.Hands;
 import com.google.mediapipe.solutions.hands.HandsOptions;
 import com.google.mediapipe.solutions.hands.HandsResult;
-import java.io.IOException;
-import java.io.InputStream;
+
 
 /** Main activity of MediaPipe Hands app. */
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends ComponentActivity {
     private static final String TAG = "MainActivity";
 
     private Hands hands;
@@ -67,8 +67,13 @@ public class CameraActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
+        }
         setupLiveDemoUiComponents();
     }
 
@@ -97,72 +102,6 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    private Bitmap downscaleBitmap(Bitmap originalBitmap) {
-        double aspectRatio = (double) originalBitmap.getWidth() / originalBitmap.getHeight();
-        int width = imageView.getWidth();
-        int height = imageView.getHeight();
-        if (((double) imageView.getWidth() / imageView.getHeight()) > aspectRatio) {
-            width = (int) (height * aspectRatio);
-        } else {
-            height = (int) (width / aspectRatio);
-        }
-        return Bitmap.createScaledBitmap(originalBitmap, width, height, false);
-    }
-
-    private Bitmap rotateBitmap(Bitmap inputBitmap, InputStream imageData) throws IOException {
-        int orientation =
-                new ExifInterface(imageData)
-                        .getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        if (orientation == ExifInterface.ORIENTATION_NORMAL) {
-            return inputBitmap;
-        }
-        Matrix matrix = new Matrix();
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                matrix.postRotate(90);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                matrix.postRotate(180);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                matrix.postRotate(270);
-                break;
-            default:
-                matrix.postRotate(0);
-        }
-        return Bitmap.createBitmap(
-                inputBitmap, 0, 0, inputBitmap.getWidth(), inputBitmap.getHeight(), matrix, true);
-    }
-
-    /** Sets up core workflow for static image mode. */
-    private void setupStaticImageModePipeline() {
-        this.inputSource = InputSource.IMAGE;
-        // Initializes a new MediaPipe Hands solution instance in the static image mode.
-        hands =
-                new Hands(
-                        this,
-                        HandsOptions.builder()
-                                .setStaticImageMode(true)
-                                .setMaxNumHands(2)
-                                .setRunOnGpu(RUN_ON_GPU)
-                                .build());
-
-        // Connects MediaPipe Hands solution to the user-defined HandsResultImageView.
-        hands.setResultListener(
-                handsResult -> {
-                    logWristLandmark(handsResult, /*showPixelValues=*/ true);
-                    imageView.setHandsResult(handsResult);
-                    runOnUiThread(() -> imageView.update());
-                });
-        hands.setErrorListener((message, e) -> Log.e(TAG, "MediaPipe Hands error:" + message));
-
-        // Updates the preview layout.
-        FrameLayout frameLayout = findViewById(R.id.preview_display_layout);
-        frameLayout.removeAllViewsInLayout();
-        imageView.setImageDrawable(null);
-        frameLayout.addView(imageView);
-        imageView.setVisibility(View.VISIBLE);
-    }
 
     /** Sets up the UI components for the live demo with camera input. */
     private void setupLiveDemoUiComponents() {
@@ -173,13 +112,13 @@ public class CameraActivity extends AppCompatActivity {
                         return;
                     }
                     stopCurrentPipeline();
-                    setupStreamingModePipeline(InputSource.CAMERA);
+                    setupStreamingModePipeline();
                 });
     }
 
     /** Sets up core workflow for streaming mode. */
-    private void setupStreamingModePipeline(InputSource inputSource) {
-        this.inputSource = inputSource;
+    private void setupStreamingModePipeline() {
+        this.inputSource = InputSource.CAMERA;
         // Initializes a new MediaPipe Hands solution instance in the streaming mode.
         hands =
                 new Hands(
@@ -191,13 +130,8 @@ public class CameraActivity extends AppCompatActivity {
                                 .build());
         hands.setErrorListener((message, e) -> Log.e(TAG, "MediaPipe Hands error:" + message));
 
-        if (inputSource == InputSource.CAMERA) {
-            cameraInput = new CameraInput(this);
-            cameraInput.setNewFrameListener(textureFrame -> hands.send(textureFrame));
-        } else if (inputSource == InputSource.VIDEO) {
-            videoInput = new VideoInput(this);
-            videoInput.setNewFrameListener(textureFrame -> hands.send(textureFrame));
-        }
+        cameraInput = new CameraInput(this);
+        cameraInput.setNewFrameListener(textureFrame -> hands.send(textureFrame));
 
         // Initializes a new Gl surface view with a user-defined HandsResultGlRenderer.
         glSurfaceView =
@@ -213,13 +147,11 @@ public class CameraActivity extends AppCompatActivity {
 
         // The runnable to start camera after the gl surface view is attached.
         // For video input source, videoInput.start() will be called when the video uri is available.
-        if (inputSource == InputSource.CAMERA) {
-            glSurfaceView.post(this::startCamera);
-        }
+        glSurfaceView.post(this::startCamera);
 
         // Updates the preview layout.
         FrameLayout frameLayout = findViewById(R.id.preview_display_layout);
-        imageView.setVisibility(View.GONE);
+        //imageView.setVisibility(View.GONE);
         frameLayout.removeAllViewsInLayout();
         frameLayout.addView(glSurfaceView);
         glSurfaceView.setVisibility(View.VISIBLE);
