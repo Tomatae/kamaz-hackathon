@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Vosk Demo</string>
     <string name="recognize_file">Recognize File</string>
     <string name="recognize_microphone">Recognize Microphone</string>
     <string name="stop_microphone">Stop Microphone</string>
@@ -14,5 +13,15 @@
     <string name="stop_file">Stop File</string>
     <string name="pause">Pause</string>
     <string name="continueRecognition">Continue</string>
-
+    <string name="app_name">My kamazz</string>
+    <string name="buttonsett">настройки</string>
+    <string name="buttonmain">главное меню</string>
+    <string name="buttonlang">выбрать язык</string>
+    <string name="buttonlangtoset">настройки</string>
+    <string name="buttonspecial">специальные возможности</string>
+    <string name="buttoncomm">настройки команд</string>
+    <string name="settname">Настройки</string>
+    <string name="paketiyazikov">Пакеты языков</string>
+    <string name="spezialnievozmoghnosti">Специальные возможности</string>
+    <string name="dobavleniecomm">Добавление команд</string>
 </resources>

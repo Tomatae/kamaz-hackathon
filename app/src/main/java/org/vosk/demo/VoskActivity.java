@@ -16,9 +16,11 @@ package org.vosk.demo;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -62,6 +64,15 @@ public class VoskActivity extends Activity implements
     public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.main);
+    public void startlanguage(View v) {
+        Intent intent = new Intent(this, language_modals.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onCreate(Bundle state) {
+        super.onCreate(state);
+        setContentView(R.layout.activity_first_page);
 
         // Setup layout
         resultView = findViewById(R.id.result_text);
@@ -84,6 +95,7 @@ public class VoskActivity extends Activity implements
         cr = new VoiceCommandRecognition();
         cr.createSheet();
     }
+
 
     private void initModel() {
         StorageService.unpack(this, "model-en-us", "model",
@@ -226,6 +238,11 @@ public class VoskActivity extends Activity implements
 //                        "10001-90210-01803.wav");
                 InputStream ais = getAssets().open(
                         "text.wav");
+                Recognizer rec = new Recognizer(model, 16000.f, "[\"one zero zero zero one\", " +
+                        "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
+
+                InputStream ais = getAssets().open(
+                        "10001-90210-01803.wav");
                 if (ais.skip(44) != 44) throw new IOException("File too short");
 
                 speechStreamService = new SpeechStreamService(rec, ais, 16000);
