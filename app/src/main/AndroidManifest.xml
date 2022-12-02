@@ -29,6 +29,15 @@
             android:name=".language_modals"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".special"
+            android:exported="false"
+            tools:ignore="DuplicateActivity">
+        </activity>
+        <activity
+            android:name=".comm"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

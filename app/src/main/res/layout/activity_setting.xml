@@ -10,53 +10,62 @@
         android:id="@+id/button2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_500"
         android:contentDescription="@string/buttonmain"
+        android:onClick="backfirst"
         android:text="@string/buttonmain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.093"
+        tools:ignore="UsingOnClickInXml" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:onClick="startlanguage"
+        android:backgroundTint="@color/purple_500"
+        android:onClick="golanguage"
         android:text="@string/buttonlang"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UsingOnClickInXml" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="startspecial"
+        android:backgroundTint="@color/purple_500"
+        android:onClick="gospecial"
         android:text="@string/buttonspecial"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UsingOnClickInXml" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="startcomm"
+        android:backgroundTint="@color/purple_500"
+        android:onClick="gocomm"
         android:text="@string/buttoncomm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="UsingOnClickInXml" />
 
     <TextView
         android:id="@+id/textView"

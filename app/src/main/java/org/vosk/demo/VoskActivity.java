@@ -152,7 +152,7 @@ public class VoskActivity extends Activity implements
     @Override
     public void onPartialResult(String hypothesis) {
         recognizeCommand(hypothesis);
-        resultView.append(hypothesis + "\n");
+        //resultView.append(hypothesis + "\n");
     }
 
     public void recognizeCommand(String line){
