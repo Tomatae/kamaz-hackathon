@@ -60,10 +60,6 @@ public class VoskActivity extends Activity implements
 
     private VoiceCommandRecognition cr;
 
-    @Override
-    public void onCreate(Bundle state) {
-        super.onCreate(state);
-        setContentView(R.layout.main);
     public void startlanguage(View v) {
         Intent intent = new Intent(this, language_modals.class);
         startActivity(intent);
@@ -233,11 +229,11 @@ public class VoskActivity extends Activity implements
             try {
 //                Recognizer rec = new Recognizer(model, 16000.f, "[\"one zero zero zero one\", " +
 //                        "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
-                Recognizer rec = new Recognizer(model, 48000);
+//                Recognizer rec = new Recognizer(model, 48000);
 //                InputStream ais = getAssets().open(
 //                        "10001-90210-01803.wav");
-                InputStream ais = getAssets().open(
-                        "text.wav");
+//                InputStream ais = getAssets().open(
+//                        "text.wav");
                 Recognizer rec = new Recognizer(model, 16000.f, "[\"one zero zero zero one\", " +
                         "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
 
