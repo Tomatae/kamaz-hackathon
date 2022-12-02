@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class setting extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +20,15 @@ public class setting extends AppCompatActivity {
 
     }
     public void startlanguage(View v) {
-        Intent intent = new Intent(this, language_modals.class);
+        Intent intent = new Intent(this, LanguageModelsActivity.class);
         startActivity(intent);
     }
     public void startspecial(View v) {
-        Intent intent = new Intent(this, special.class);
+        Intent intent = new Intent(this, SpecialAbbilitiesActivity.class);
         startActivity(intent);
     }
     public void startcomm(View v) {
-        Intent intent = new Intent(this, comm.class);
+        Intent intent = new Intent(this, AdditionalCommandSettings.class);
         startActivity(intent);
     }
 }

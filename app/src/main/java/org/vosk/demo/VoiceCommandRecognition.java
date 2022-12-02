@@ -26,8 +26,8 @@ public class VoiceCommandRecognition {
         commandExamples.put(5, Arrays.asList("дворники", "переключи дворники"));
         commandExamples.put(6, Arrays.asList("включи дворники", "протри стекло"));
         commandExamples.put(7, Arrays.asList("выключи дворники", "стекло чистое", "выключи дворники"));
-        commandExamples.put(8, Arrays.asList("музыку потише", "убавь громкост", "убавь музыку"));
-        commandExamples.put(9, Arrays.asList("музыку погромче", "прибавь громкост", "добавь громкост", "прибавь музыку", "добавь музыку"));
+        commandExamples.put(8, Arrays.asList("музыку потише", "убавь громкост", "убавь музыку", "потише"));
+        commandExamples.put(9, Arrays.asList("музыку погромче", "прибавь громкост", "добавь громкост", "прибавь музыку", "добавь музыку", "погромче"));
         commandExamples.put(10, Arrays.asList("заблокируй двери", "закрой замок", "заблокируй замок"));
     }
 
