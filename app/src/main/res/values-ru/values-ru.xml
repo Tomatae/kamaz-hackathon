@@ -17,12 +17,9 @@
     <string name="button_sett">Настройки</string>
     <string name="button_camera">Камера</string>
     <string name="button_main">Главное меню</string>
-    <string name="buttonlang">Смена языка</string>
-    <string name="buttonlangtoset">настройки</string>
-    <string name="buttonspecial">Cпециальные возможности</string>
-    <string name="buttoncomm">Настройки команд</string>
-    <string name="settname">Настройки</string>
-    <string name="paketiyazikov">Пакеты языков</string>
+    <string name="button_language_models">Смена языковой модели</string>
+    <string name="button_special">Cпециальные возможности</string>
+    <string name="button_command_settings">Настройки команд</string>
     <string name="spezialnievozmoghnosti">Специальные возможности</string>
     <string name="dobavleniecomm">Добавление команд</string>
 

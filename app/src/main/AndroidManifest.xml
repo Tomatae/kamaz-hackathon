@@ -26,7 +26,22 @@
             android:name=".SettingsActivity"
             android:exported="false">
         </activity>
-        <activity android:name=".CameraActivity" />
+        <activity
+            android:name=".LanguageModelsActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".SpecialAbbilitiesActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".AdditionalCommandSettingsActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>

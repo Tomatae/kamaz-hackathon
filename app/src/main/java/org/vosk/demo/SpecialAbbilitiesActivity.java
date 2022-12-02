@@ -13,10 +13,8 @@ public class SpecialAbbilitiesActivity extends Activity {
         setContentView(R.layout.activity_special);
     }
 
-    public void gosett(View v) {
+    public void settingsActivity(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-
-
     }
 }

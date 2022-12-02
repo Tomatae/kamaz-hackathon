@@ -20,12 +20,9 @@
     <string name="button_sett">Settings</string>
     <string name="button_camera">Camera</string>
     <string name="button_main">Main Menu</string>
-    <string name="buttonlang">Language</string>
-    <string name="buttonlangtoset">Settings</string>
-    <string name="buttonspecial">Special Abilities</string>
-    <string name="buttoncomm">Command Settings</string>
-    <string name="settname">Settings</string>
-    <string name="paketiyazikov">Language Models</string>
+    <string name="button_language_models">Language Models</string>
+    <string name="button_special">Special Abilities</string>
+    <string name="button_command_settings">Command Settings</string>
     <string name="spezialnievozmoghnosti">Special Abilities</string>
     <string name="dobavleniecomm">Add Commands</string>
 
