@@ -45,6 +45,7 @@ import org.vosk.android.StorageService;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -91,6 +92,7 @@ public class VoskActivity extends Activity implements
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -260,7 +262,7 @@ public class VoskActivity extends Activity implements
 //                        "10001-90210-01803.wav");
 //                InputStream ais = getAssets().open(
 //                        "text.wav");
-                Recognizer rec = new Recognizer(model, 16000.f, "[\"one zero zero zero one\", " +
+                Recognizer rec = new Recognizer(model, 16000.f, "[\"ф zero zero zero one\", " +
                         "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
 
                 InputStream ais = getAssets().open(
@@ -275,6 +277,7 @@ public class VoskActivity extends Activity implements
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void recognizeMicrophone() {
         if (speechService != null) {
             setUiState(STATE_DONE);
@@ -283,7 +286,9 @@ public class VoskActivity extends Activity implements
         } else {
             setUiState(STATE_MIC);
             try {
-                Recognizer rec = new Recognizer(model, 16000.0f);
+                System.out.println(cr.getDictionary());
+                Recognizer rec = new Recognizer(model, 16000.0f, "[\"камаз сколько времени\", \"камаз который час\", \"камаз закрой правое окно\", \"камаз прикрой правое окно\", \"камаз открой правое окно\", \"камаз приоткрой правое окно\", \"камаз закрой левое окно\", \"камаз прикрой левое окно\", \"камаз открой левое окно\", \"камаз приоткрой левое окно\", \"камаз дворники\", \"камаз переключи дворники\", \"камаз включи дворники\", \"камаз протри стекло\", \"камаз выключи дворники\", \"камаз стекло чистое\", \"камаз выключи дворники\", \"камаз музыку потише\", \"камаз убавь громкост\", \"камаз убавь музыку\", \"камаз потише\", \"камаз музыку погромче\", \"камаз прибавь громкост\", \"камаз добавь громкост\", \"камаз прибавь музыку\", \"камаз добавь музыку\", \"камаз погромче\", \"камаз заблокируй двери\", \"камаз закрой замок\", \"камаз заблокируй замок\"]");
+
                 speechService = new SpeechService(rec, 16000.0f);
                 speechService.startListening(this);
             } catch (IOException e) {
