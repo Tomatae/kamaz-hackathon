@@ -37,6 +37,9 @@ import com.google.mediapipe.solutions.hands.Hands;
 import com.google.mediapipe.solutions.hands.HandsOptions;
 import com.google.mediapipe.solutions.hands.HandsResult;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 /** Main activity of MediaPipe Hands app. */
 public class CameraActivity extends ComponentActivity {
@@ -128,7 +131,7 @@ public class CameraActivity extends ComponentActivity {
                                 .setMaxNumHands(2)
                                 .setRunOnGpu(RUN_ON_GPU)
                                 .build());
-        hands.setErrorListener((message, e) -> Log.e(TAG, "MediaPipe Hands error:" + message));
+//        hands.setErrorListener((message, e) -> Log.e(TAG, "MediaPipe Hands error:" + message));
 
         cameraInput = new CameraInput(this);
         cameraInput.setNewFrameListener(textureFrame -> hands.send(textureFrame));
@@ -140,7 +143,8 @@ public class CameraActivity extends ComponentActivity {
         glSurfaceView.setRenderInputImage(true);
         hands.setResultListener(
                 handsResult -> {
-                    logWristLandmark(handsResult, /*showPixelValues=*/ false);
+//                    logWristLandmark(handsResult, /*showPixelValues=*/ false);
+                    logGestures(handsResult);
                     glSurfaceView.setRenderData(handsResult);
                     glSurfaceView.requestRender();
                 });
@@ -184,38 +188,63 @@ public class CameraActivity extends ComponentActivity {
         }
     }
 
-    private void logWristLandmark(HandsResult result, boolean showPixelValues) {
-        if (result.multiHandLandmarks().isEmpty()) {
-            return;
+    private void logGestures(HandsResult result) {
+        if (result.multiHandLandmarks().isEmpty()) return;
+        List<NormalizedLandmark> fingerLandmarks = result.multiHandLandmarks().get(0).getLandmarkList();
+        List<Boolean> fingers = Arrays.asList(false, false, false, false, false);
+
+        double finger_x0 = fingerLandmarks.get(0).getX();
+        double finger_y0 = fingerLandmarks.get(0).getY();
+        double finger_x, finger_y, finger_xm, finger_ym;
+
+        for (int i = 1; i <= 5; i++) {
+            finger_x = Math.pow(fingerLandmarks.get(i*4).getX() - finger_x0, 2);
+            finger_y = Math.pow(fingerLandmarks.get(i*4).getY() - finger_y0, 2);
+            finger_xm = Math.pow(fingerLandmarks.get(i*4-2).getX() - finger_x0, 2);
+            finger_ym = Math.pow(fingerLandmarks.get(i*4-2).getY() - finger_y0, 2);
+            fingers.set(i-1, Math.sqrt(finger_x + finger_y) < Math.sqrt(finger_xm + finger_ym));
         }
-        NormalizedLandmark wristLandmark =
-                result.multiHandLandmarks().get(0).getLandmarkList().get(HandLandmark.WRIST);
-        // For Bitmaps, show the pixel values. For texture inputs, show the normalized coordinates.
-        if (showPixelValues) {
-            int width = result.inputBitmap().getWidth();
-            int height = result.inputBitmap().getHeight();
-            Log.i(
-                    TAG,
-                    String.format(
-                            "MediaPipe Hand wrist coordinates (pixel values): x=%f, y=%f",
-                            wristLandmark.getX() * width, wristLandmark.getY() * height));
-        } else {
-            Log.i(
-                    TAG,
-                    String.format(
-                            "MediaPipe Hand wrist normalized coordinates (value range: [0, 1]): x=%f, y=%f",
-                            wristLandmark.getX(), wristLandmark.getY()));
+
+        int closedFingers = 0;
+        for (boolean f : fingers) {
+            if (f) closedFingers++;
         }
-        if (result.multiHandWorldLandmarks().isEmpty()) {
-            return;
-        }
-        Landmark wristWorldLandmark =
-                result.multiHandWorldLandmarks().get(0).getLandmarkList().get(HandLandmark.WRIST);
-        Log.i(
-                TAG,
-                String.format(
-                        "MediaPipe Hand wrist world coordinates (in meters with the origin at the hand's"
-                                + " approximate geometric center): x=%f m, y=%f m, z=%f m",
-                        wristWorldLandmark.getX(), wristWorldLandmark.getY(), wristWorldLandmark.getZ()));
+
+        System.out.println(closedFingers*1111111);
     }
+
+//    private void logWristLandmark(HandsResult result, boolean showPixelValues) {
+//        if (result.multiHandLandmarks().isEmpty()) {
+//            return;
+//        }
+//        NormalizedLandmark wristLandmark =
+//                result.multiHandLandmarks().get(0).getLandmarkList().get(HandLandmark.WRIST);
+//        // For Bitmaps, show the pixel values. For texture inputs, show the normalized coordinates.
+//        if (showPixelValues) {
+//            int width = result.inputBitmap().getWidth();
+//            int height = result.inputBitmap().getHeight();
+//            Log.i(
+//                    TAG,
+//                    String.format(
+//                            "MediaPipe Hand wrist coordinates (pixel values): x=%f, y=%f",
+//                            wristLandmark.getX() * width, wristLandmark.getY() * height));
+//        } else {
+//            Log.i(
+//                    TAG,
+//                    String.format(
+//                            "MediaPipe Hand wrist normalized coordinates (value range: [0, 1]): x=%f, y=%f",
+//                            wristLandmark.getX(), wristLandmark.getY()));
+//        }
+//        if (result.multiHandWorldLandmarks().isEmpty()) {
+//            return;
+//        }
+//        Landmark wristWorldLandmark =
+//                result.multiHandWorldLandmarks().get(0).getLandmarkList().get(HandLandmark.WRIST);
+//        Log.i(
+//                TAG,
+//                String.format(
+//                        "MediaPipe Hand wrist world coordinates (in meters with the origin at the hand's"
+//                                + " approximate geometric center): x=%f m, y=%f m, z=%f m",
+//                        wristWorldLandmark.getX(), wristWorldLandmark.getY(), wristWorldLandmark.getZ()));
+//    }
 }
