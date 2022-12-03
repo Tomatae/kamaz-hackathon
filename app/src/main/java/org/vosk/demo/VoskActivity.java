@@ -117,7 +117,7 @@ public class VoskActivity extends Activity implements
         cr = new VoiceCommandRecognition();
         cr.createSheet();
 
-        cr.shareContext(this.getBaseContext());
+        cr.context = this.getBaseContext();
     }
 
     private void initModel() {

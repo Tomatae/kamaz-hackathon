@@ -80,10 +80,6 @@ public class VoiceCommandRecognition {
         commandExamples.put(commandId, commandStringList);
     }
 
-    public void shareContext(Context c) {
-        context = c;
-    }
-
     public void recognizeCommand(String line) {
         try {
             JSONObject jsonObject = new JSONObject(line);

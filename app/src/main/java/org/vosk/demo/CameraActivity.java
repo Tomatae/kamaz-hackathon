@@ -44,7 +44,7 @@ import java.util.List;
 /** Main activity of MediaPipe Hands app. */
 public class CameraActivity extends ComponentActivity {
     private static final String TAG = "MainActivity";
-
+    public GestureCommandRecognition gcr;
     private Hands hands;
     // Run the pipeline and the model inference on GPU or CPU.
     private static final boolean RUN_ON_GPU = true;
@@ -73,6 +73,11 @@ public class CameraActivity extends ComponentActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        gcr = new GestureCommandRecognition();
+        gcr.createGestures();
+        gcr.context = this.getBaseContext();
+
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 2);
@@ -188,10 +193,15 @@ public class CameraActivity extends ComponentActivity {
         }
     }
 
+    List<Boolean> falseFive = Arrays.asList(false, false, false, false, false);
+
     private void logGestures(HandsResult result) {
-        if (result.multiHandLandmarks().isEmpty()) return;
+        if (result.multiHandLandmarks().isEmpty()) {
+            gcr.slipperyFingers = falseFive;
+            return;
+        }
         List<NormalizedLandmark> fingerLandmarks = result.multiHandLandmarks().get(0).getLandmarkList();
-        List<Boolean> fingers = Arrays.asList(false, false, false, false, false);
+        List<Boolean> fingers = falseFive;
 
         double finger_x0 = fingerLandmarks.get(0).getX();
         double finger_y0 = fingerLandmarks.get(0).getY();
@@ -211,12 +221,15 @@ public class CameraActivity extends ComponentActivity {
             finger_ym = Math.pow(fingerLandmarks.get(2).getY() - fingerLandmarks.get(17).getY(), 2);
             fingers.set(0, Math.sqrt(finger_x + finger_y) < Math.sqrt(finger_xm + finger_ym));
         }
-        int closedFingers = 0;
-        for (boolean f : fingers) {
-            if (f) closedFingers++;
-        }
 
-        System.out.println(closedFingers*1111111);
+//        int closedFingers = 0;
+//        for (boolean f : fingers) {
+//            if (f) closedFingers++;
+//        }
+
+        gcr.slipperyFingers = fingers;
+        gcr.update();
+        //System.out.println(closedFingers*1111111);
     }
 
 //    private void logWristLandmark(HandsResult result, boolean showPixelValues) {
