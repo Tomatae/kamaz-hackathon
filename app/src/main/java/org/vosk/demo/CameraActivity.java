@@ -204,7 +204,13 @@ public class CameraActivity extends ComponentActivity {
             finger_ym = Math.pow(fingerLandmarks.get(i*4-2).getY() - finger_y0, 2);
             fingers.set(i-1, Math.sqrt(finger_x + finger_y) < Math.sqrt(finger_xm + finger_ym));
         }
-
+        if (!fingers.get(0)) {
+            finger_x = Math.pow(fingerLandmarks.get(4).getX() - fingerLandmarks.get(17).getX(), 2);
+            finger_y = Math.pow(fingerLandmarks.get(4).getY() - fingerLandmarks.get(17).getY(), 2);
+            finger_xm = Math.pow(fingerLandmarks.get(2).getX() - fingerLandmarks.get(17).getX(), 2);
+            finger_ym = Math.pow(fingerLandmarks.get(2).getY() - fingerLandmarks.get(17).getY(), 2);
+            fingers.set(0, Math.sqrt(finger_x + finger_y) < Math.sqrt(finger_xm + finger_ym));
+        }
         int closedFingers = 0;
         for (boolean f : fingers) {
             if (f) closedFingers++;
