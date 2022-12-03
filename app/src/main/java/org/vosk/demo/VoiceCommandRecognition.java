@@ -1,10 +1,14 @@
 package org.vosk.demo;
 
 import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +36,21 @@ public class VoiceCommandRecognition {
         commandExamples.put(8, Arrays.asList("музыку потише", "убавь громкост", "убавь музыку", "потише"));
         commandExamples.put(9, Arrays.asList("музыку погромче", "прибавь громкост", "добавь громкост", "прибавь музыку", "добавь музыку", "погромче"));
         commandExamples.put(10, Arrays.asList("заблокируй двери", "закрой замок", "заблокируй замок"));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getDictionary(){
+        ArrayList<String> ret = new ArrayList<>();
+        for (Map.Entry<Integer, List<String>> entry: commandExamples.entrySet()){
+
+          for (String v:
+                    entry.getValue()) {
+               entry.getValue().set(entry.getValue().indexOf(v), String.format("\"камаз %s\"", v));
+            }
+
+            ret.addAll(entry.getValue());
+        }
+        return ret.toString();
     }
 
     public void checkSimilarities(int key, String stored, String received) {
