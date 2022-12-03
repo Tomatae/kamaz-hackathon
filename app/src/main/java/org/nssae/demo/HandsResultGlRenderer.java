@@ -1,4 +1,4 @@
-package org.vosk.demo;
+package org.nssae.demo;
 
 import android.opengl.GLES20;
 import com.google.mediapipe.formats.proto.LandmarkProto.NormalizedLandmark;

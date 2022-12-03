@@ -12,21 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.vosk.demo;
+package org.nssae.demo;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -42,26 +38,12 @@ import org.vosk.android.RecognitionListener;
 import org.vosk.android.SpeechService;
 import org.vosk.android.SpeechStreamService;
 import org.vosk.android.StorageService;
+import org.vosk.demo.R;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.exifinterface.media.ExifInterface;
-
-import com.google.mediapipe.formats.proto.LandmarkProto;
-import com.google.mediapipe.solutioncore.CameraInput;
-import com.google.mediapipe.solutioncore.SolutionGlSurfaceView;
-import com.google.mediapipe.solutioncore.VideoInput;
-import com.google.mediapipe.solutions.hands.HandLandmark;
-import com.google.mediapipe.solutions.hands.Hands;
-import com.google.mediapipe.solutions.hands.HandsOptions;
-import com.google.mediapipe.solutions.hands.HandsResult;
 
 public class VoskActivity extends Activity implements
         RecognitionListener {

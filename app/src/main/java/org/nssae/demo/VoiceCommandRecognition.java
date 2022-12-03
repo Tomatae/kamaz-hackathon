@@ -1,4 +1,4 @@
-package org.vosk.demo;
+package org.nssae.demo;
 
 import android.content.Context;
 import android.os.Build;

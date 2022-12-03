@@ -1,14 +1,11 @@
-package org.vosk.demo;
+package org.nssae.demo;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Looper;
 
 import androidx.annotation.RequiresApi;
 
-import java.sql.Time;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

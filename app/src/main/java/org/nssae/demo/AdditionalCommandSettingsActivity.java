@@ -1,4 +1,4 @@
-package org.vosk.demo;
+package org.nssae.demo;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
 
-import java.util.List;
+import org.vosk.demo.R;
 
 public class AdditionalCommandSettingsActivity extends Activity {
 

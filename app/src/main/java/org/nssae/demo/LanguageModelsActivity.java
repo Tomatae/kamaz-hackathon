@@ -1,9 +1,11 @@
-package org.vosk.demo;
+package org.nssae.demo;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import org.vosk.demo.R;
 
 public class LanguageModelsActivity extends Activity {
 
