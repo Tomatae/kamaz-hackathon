@@ -1,10 +1,17 @@
 package org.vosk.demo;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 public class ActionNotifications {
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public static void spreadAction(int i, Context context) {
         switch (i) {
             case 0:
@@ -57,7 +64,10 @@ public class ActionNotifications {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     private static void showInfo(String text, Context context) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        Intent i = new Intent(Intent.CATEGORY_INFO, Uri.parse("localhost"));
+        context.sendBroadcast(i);
+        context.getMainExecutor().execute(() -> Toast.makeText(context, text, Toast.LENGTH_LONG).show());
     }
 }

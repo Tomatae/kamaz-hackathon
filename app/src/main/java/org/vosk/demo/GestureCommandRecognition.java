@@ -1,8 +1,14 @@
 package org.vosk.demo;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.Looper;
 
+import androidx.annotation.RequiresApi;
+
+import java.sql.Time;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +20,8 @@ public class GestureCommandRecognition {
     public Map<Integer, Integer> gestureCommandExamples = new HashMap<>();
 
     public Context context;
+
+    private long reacted = 0;
 
     public void createGestures() {
         gestureCommandExamples.put(0, 6); //00110
@@ -59,16 +67,22 @@ public class GestureCommandRecognition {
         return res;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void update() {
-        int curr = convertCurrentDec();
-        for (Map.Entry<Integer, Integer> entry : gestureCommandExamples.entrySet()) {
-            int k = entry.getKey();
-            int v = entry.getValue();
-            if (v == curr) {
-                System.out.println("Received a matching combination");
-//                ActionNotifications.spreadAction(k, context);
-                return;
+        if (System.currentTimeMillis() - reacted > 3000) {
+            reacted = System.currentTimeMillis();
+            int curr = convertCurrentDec();
+            for (Map.Entry<Integer, Integer> entry : gestureCommandExamples.entrySet()) {
+                int k = entry.getKey();
+                int v = entry.getValue();
+                if (v == curr) {
+                    System.out.println("Received a matching combination");
+
+                    ActionNotifications.spreadAction(k, context);
+                    return;
+                }
             }
+
         }
     }
 }
