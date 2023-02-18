@@ -66,6 +66,9 @@ public class ActionNotifications {
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     private static void showInfo(String text, Context context) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//            this.getMainExecutor().execute(() -> Toast.makeText(this, "Showing data for Card ID = " + String.valueOf(id), Toast.LENGTH_LONG).show());
+//        }
         Intent i = new Intent(Intent.CATEGORY_INFO, Uri.parse("localhost"));
         context.sendBroadcast(i);
         context.getMainExecutor().execute(() -> Toast.makeText(context, text, Toast.LENGTH_LONG).show());

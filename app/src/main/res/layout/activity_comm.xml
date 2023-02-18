@@ -55,7 +55,6 @@
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="settingsActivity"
         android:text="@string/button_sett"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +70,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:autofillHints="Activity ID (number)"
         android:ems="10"
+        android:hint="@string/activity_id_textedit_hint"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,11 +86,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/voice_command"
         android:inputType="textPersonName"
-        android:text="Навали музычку"
+        android:text="@string/slangStartMusic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityId" />
+        app:layout_constraintTop_toBottomOf="@+id/activityId"
+        android:autofillHints="Voice command" />
 
     <Button
         android:id="@+id/apply"

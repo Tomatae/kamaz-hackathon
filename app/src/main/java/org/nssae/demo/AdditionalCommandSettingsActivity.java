@@ -18,15 +18,11 @@ public class AdditionalCommandSettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comm);
 
-        Button button = (Button) findViewById(R.id.apply);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                addUsersCommand();
-            }
-        });
+        findViewById(R.id.apply).setOnClickListener(view -> addUsersCommand());
+        findViewById(R.id.settings).setOnClickListener(view -> settingsActivity());
     }
 
-    public void settingsActivity(View v) {
+    private void settingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }

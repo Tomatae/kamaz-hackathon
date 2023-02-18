@@ -23,5 +23,8 @@
     <string name="spezialnievozmoghnosti">Специальные возможности</string>
     <string name="dobavleniecomm">Добавление команд</string>
     <string name="apply">Принять</string>
+    <string name="slangStartMusic">Навали музычку</string>
+    <string name="activity_id_textedit_hint">ID Действия (число)</string>
+    <string name="voice_command">Голосовая команда</string>
 
 </resources>

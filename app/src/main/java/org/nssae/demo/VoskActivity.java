@@ -1,17 +1,3 @@
-// Copyright 2019 Alpha Cephei Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package org.nssae.demo;
 
 import android.Manifest;
@@ -62,14 +48,14 @@ public class VoskActivity extends Activity implements
     private SpeechStreamService speechStreamService;
     private TextView resultView;
 
-    private VoiceCommandRecognition cr;
+    private CommandRecognition cr;
 
-    public void settingsActivity(View v) {
+    private void settingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
-    public void cameraActivity(View v) {
+    private void cameraActivity() {
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
     }
@@ -84,6 +70,8 @@ public class VoskActivity extends Activity implements
         resultView = findViewById(R.id.result_text);
         setUiState(STATE_START);
 
+        findViewById(R.id.settings).setOnClickListener(view -> settingsActivity());
+        findViewById(R.id.camera).setOnClickListener(view -> cameraActivity());
         findViewById(R.id.recognize_file).setOnClickListener(view -> recognizeFile());
         findViewById(R.id.recognize_mic).setOnClickListener(view -> recognizeMicrophone());
         ((ToggleButton) findViewById(R.id.pause)).setOnCheckedChangeListener((view, isChecked) -> pause(isChecked));
@@ -98,9 +86,8 @@ public class VoskActivity extends Activity implements
             initModel();
         }
 
-        cr = new VoiceCommandRecognition();
-        cr.createSheet();
-
+        cr = new CommandRecognition();
+        cr.createCommandRecognition();
         cr.context = this.getBaseContext();
     }
 
@@ -120,8 +107,6 @@ public class VoskActivity extends Activity implements
 
         if (requestCode == PERMISSIONS_REQUEST_RECORD_AUDIO) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Recognizer initialization is a time-consuming and it involves IO,
-                // so we execute it in async task
                 initModel();
             } else {
                 finish();
@@ -143,12 +128,14 @@ public class VoskActivity extends Activity implements
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onResult(String hypothesis) {
         recognizeCommand(hypothesis);
         resultView.append(hypothesis + "\n");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onFinalResult(String hypothesis) {
         recognizeCommand(hypothesis);
@@ -159,12 +146,14 @@ public class VoskActivity extends Activity implements
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onPartialResult(String hypothesis) {
         recognizeCommand(hypothesis);
         resultView.append(hypothesis + "\n");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void recognizeCommand(String line) {
         cr.recognizeCommand(line);
     }
@@ -237,21 +226,13 @@ public class VoskActivity extends Activity implements
         } else {
             setUiState(STATE_FILE);
             try {
-//                Recognizer rec = new Recognizer(model, 16000.f, "[\"one zero zero zero one\", " +
-//                        "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
-//                Recognizer rec = new Recognizer(model, 48000);
-//                InputStream ais = getAssets().open(
-//                        "10001-90210-01803.wav");
-//                InputStream ais = getAssets().open(
-//                        "text.wav");
-                Recognizer rec = new Recognizer(model, 16000.f, "[\"ф zero zero zero one\", " +
-                        "\"oh zero one two three four five six seven eight nine\", \"[unk]\"]");
+                Recognizer rec = new Recognizer(model, 88000.f, "[\"камаз сколько времени\", \"камаз который час\", \"камаз закрой правое окно\", \"камаз прикрой правое окно\", \"камаз открой правое окно\", \"камаз приоткрой правое окно\", \"камаз закрой левое окно\", \"камаз прикрой левое окно\", \"камаз открой левое окно\", \"камаз приоткрой левое окно\", \"камаз дворники\", \"камаз переключи дворники\", \"камаз включи дворники\", \"камаз протри стекло\", \"камаз выключи дворники\", \"камаз стекло чистое\", \"камаз выключи дворники\", \"камаз музыку потише\", \"камаз убавь громкост\", \"камаз убавь музыку\", \"камаз потише\", \"камаз музыку погромче\", \"камаз прибавь громкост\", \"камаз добавь громкост\", \"камаз прибавь музыку\", \"камаз добавь музыку\", \"камаз погромче\", \"камаз заблокируй двери\", \"камаз закрой замок\", \"камаз заблокируй замок\"]");
 
                 InputStream ais = getAssets().open(
-                        "10001-90210-01803.wav");
+                        "firsttry.wav");
                 if (ais.skip(44) != 44) throw new IOException("File too short");
 
-                speechStreamService = new SpeechStreamService(rec, ais, 16000);
+                speechStreamService = new SpeechStreamService(rec, ais, 88000);
                 speechStreamService.start(this);
             } catch (IOException e) {
                 setErrorState(e.getMessage());

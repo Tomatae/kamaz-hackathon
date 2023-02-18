@@ -12,7 +12,4 @@
 *.iml
 *.hprof
 *.mp3
-<<<<<<< HEAD
-
-=======
->>>>>>> 1e6e0ec (laga)
+/app/src/main/assets

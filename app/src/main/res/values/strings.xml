@@ -26,5 +26,8 @@
     <string name="spezialnievozmoghnosti">Special Abilities</string>
     <string name="dobavleniecomm">Add Commands</string>
     <string name="apply">Apply</string>
+    <string name="slangStartMusic">Drop the music</string>
+    <string name="activity_id_textedit_hint">Activity ID (number)</string>
+    <string name="voice_command">Voice command</string>
 
 </resources>

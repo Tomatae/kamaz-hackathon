@@ -13,9 +13,10 @@ public class LanguageModelsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_models);
+        findViewById(R.id.settings).setOnClickListener(view -> settingsActivity());
     }
 
-    public void settingsActivity(View v) {
+    private void settingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
