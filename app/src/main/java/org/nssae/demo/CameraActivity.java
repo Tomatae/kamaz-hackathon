@@ -30,7 +30,6 @@ import java.util.List;
 
 /** Main activity of MediaPipe Hands app. */
 public class CameraActivity extends ComponentActivity {
-    private static final String TAG = "MainActivity";
     public CommandRecognition cr;
     private Hands hands;
     // Run the pipeline and the model inference on GPU or CPU.
@@ -46,7 +45,6 @@ public class CameraActivity extends ComponentActivity {
 
     // Image demo UI and image loader components.
     private ActivityResultLauncher<Intent> imageGetter;
-    private HandsResultImageView imageView;
     // Video demo UI and video loader components.
     private VideoInput videoInput;
     private ActivityResultLauncher<Intent> videoGetter;
@@ -113,20 +111,16 @@ public class CameraActivity extends ComponentActivity {
                 });
     }
 
-    /** Sets up core workflow for streaming mode. */
-    @RequiresApi(api = Build.VERSION_CODES.P)
+
     private void setupStreamingModePipeline() {
         this.inputSource = InputSource.CAMERA;
         // Initializes a new MediaPipe Hands solution instance in the streaming mode.
-        hands =
-                new Hands(
-                        this,
+        hands = new Hands(this,
                         HandsOptions.builder()
                                 .setStaticImageMode(false)
                                 .setMaxNumHands(2)
                                 .setRunOnGpu(RUN_ON_GPU)
                                 .build());
-//        hands.setErrorListener((message, e) -> Log.e(TAG, "MediaPipe Hands error:" + message));
 
         cameraInput = new CameraInput(this);
         cameraInput.setNewFrameListener(textureFrame -> hands.send(textureFrame));
@@ -138,7 +132,6 @@ public class CameraActivity extends ComponentActivity {
         glSurfaceView.setRenderInputImage(true);
         hands.setResultListener(
                 handsResult -> {
-//                    logWristLandmark(handsResult, /*showPixelValues=*/ false);
                     logGestures(handsResult);
                     glSurfaceView.setRenderData(handsResult);
                     glSurfaceView.requestRender();
@@ -158,8 +151,7 @@ public class CameraActivity extends ComponentActivity {
     }
 
     private void startCamera() {
-        cameraInput.start(
-                this,
+        cameraInput.start(this,
                 hands.getGlContext(),
                 CameraInput.CameraFacing.FRONT,
                 glSurfaceView.getWidth(),
@@ -185,7 +177,6 @@ public class CameraActivity extends ComponentActivity {
 
     List<Boolean> falseFive = Arrays.asList(false, false, false, false, false);
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     private void logGestures(HandsResult result) {
         if (result.multiHandLandmarks().isEmpty()) {
             cr.slipperyFingers = falseFive;
@@ -194,24 +185,10 @@ public class CameraActivity extends ComponentActivity {
         List<NormalizedLandmark> fLmarks = result.multiHandLandmarks().get(0).getLandmarkList();
         List<Boolean> fingers = falseFive;
 
-//        double finger_x0 = fLmarks.get(0).getX();
-//        double finger_y0 = fLmarks.get(0).getY();
-//        double finger_x, finger_y, finger_xm, finger_ym;
-
         for (int i = 1; i <= 5; i++) {
-//            finger_x = Math.pow(fLmarks.get(i*4).getX() - finger_x0, 2);
-//            finger_y = Math.pow(fLmarks.get(i*4).getY() - finger_y0, 2);
-//            finger_xm = Math.pow(fLmarks.get(i*4-2).getX() - finger_x0, 2);
-//            finger_ym = Math.pow(fLmarks.get(i*4-2).getY() - finger_y0, 2);
-//            fingers.set(i-1, Math.sqrt(finger_x + finger_y) < Math.sqrt(finger_xm + finger_ym));
             fingers.set(i-1, distance(fLmarks.get(i*4), fLmarks.get(0)) < distance(fLmarks.get(i*4-2), fLmarks.get(0)));
         }
         if (!fingers.get(0)) {
-//            finger_x = Math.pow(fLmarks.get(4).getX() - fLmarks.get(17).getX(), 2);
-//            finger_y = Math.pow(fLmarks.get(4).getY() - fLmarks.get(17).getY(), 2);
-//            finger_xm = Math.pow(fLmarks.get(2).getX() - fLmarks.get(17).getX(), 2);
-//            finger_ym = Math.pow(fLmarks.get(2).getY() - fLmarks.get(17).getY(), 2);
-//            fingers.set(0, Math.sqrt(finger_x + finger_y) < Math.sqrt(finger_xm + finger_ym));
             fingers.set(0, distance(fLmarks.get(4), fLmarks.get(17)) < distance(fLmarks.get(2), fLmarks.get(17)));
         }
 

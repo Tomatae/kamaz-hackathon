@@ -20,11 +20,12 @@
     <string name="button_language_models">Смена языковой модели</string>
     <string name="button_special">Cпециальные возможности</string>
     <string name="button_command_settings">Настройки команд</string>
-    <string name="spezialnievozmoghnosti">Специальные возможности</string>
+    <string name="special_abilities_header">Специальные возможности</string>
     <string name="dobavleniecomm">Добавление команд</string>
     <string name="apply">Принять</string>
     <string name="slangStartMusic">Навали музычку</string>
     <string name="activity_id_textedit_hint">ID Действия (число)</string>
     <string name="voice_command">Голосовая команда</string>
+    <string name="settings_header">Settings</string>
 
 </resources>

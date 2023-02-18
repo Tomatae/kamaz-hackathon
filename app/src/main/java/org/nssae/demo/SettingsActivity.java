@@ -19,7 +19,6 @@ public class SettingsActivity extends Activity {
     }
 
     public void changeActivity(Class<?> c) {
-        Intent intent = new Intent(this, c);
-        startActivity(intent);
+        startActivity(new Intent(this, c));
     }
 }

@@ -23,11 +23,12 @@
     <string name="button_language_models">Language Models</string>
     <string name="button_special">Special Abilities</string>
     <string name="button_command_settings">Command Settings</string>
-    <string name="spezialnievozmoghnosti">Special Abilities</string>
+    <string name="special_abilities_header">Special Abilities</string>
     <string name="dobavleniecomm">Add Commands</string>
     <string name="apply">Apply</string>
     <string name="slangStartMusic">Drop the music</string>
     <string name="activity_id_textedit_hint">Activity ID (number)</string>
     <string name="voice_command">Voice command</string>
+    <string name="settings_header">Settings</string>
 
 </resources>

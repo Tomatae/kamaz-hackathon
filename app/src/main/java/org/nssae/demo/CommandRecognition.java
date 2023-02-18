@@ -182,7 +182,6 @@ public class CommandRecognition {
         return res;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     public void recognizeCommand() {
         if (System.currentTimeMillis() - reacted > 3000) {
             reacted = System.currentTimeMillis();

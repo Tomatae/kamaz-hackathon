@@ -13,10 +13,10 @@ public class SpecialAbbilitiesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_special);
+        findViewById(R.id.button_settings).setOnClickListener(view -> changeActivity(SettingsActivity.class));
     }
 
-    public void settingsActivity(View v) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+    private void changeActivity(Class<?> c) {
+        startActivity(new Intent(this, c));
     }
 }

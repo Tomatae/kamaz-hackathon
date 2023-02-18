@@ -12,4 +12,5 @@
 *.iml
 *.hprof
 *.mp3
+.gitattributes
 /app/src/main/assets

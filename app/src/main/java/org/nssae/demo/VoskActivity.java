@@ -4,10 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -28,8 +26,6 @@ import org.vosk.demo.R;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import androidx.annotation.RequiresApi;
 
 public class VoskActivity extends Activity implements
         RecognitionListener {
@@ -60,7 +56,6 @@ public class VoskActivity extends Activity implements
         startActivity(intent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -128,14 +123,12 @@ public class VoskActivity extends Activity implements
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onResult(String hypothesis) {
         recognizeCommand(hypothesis);
         resultView.append(hypothesis + "\n");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onFinalResult(String hypothesis) {
         recognizeCommand(hypothesis);
@@ -146,14 +139,12 @@ public class VoskActivity extends Activity implements
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onPartialResult(String hypothesis) {
         recognizeCommand(hypothesis);
         resultView.append(hypothesis + "\n");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     public void recognizeCommand(String line) {
         cr.recognizeCommand(line);
     }
@@ -240,7 +231,6 @@ public class VoskActivity extends Activity implements
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void recognizeMicrophone() {
         if (speechService != null) {
             setUiState(STATE_DONE);
