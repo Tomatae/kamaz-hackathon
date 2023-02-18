@@ -30,5 +30,7 @@
     <string name="activity_id_textedit_hint">Activity ID (number)</string>
     <string name="voice_command">Voice command</string>
     <string name="settings_header">Settings</string>
+    <string name="include_audio">Include Audio</string>
+    <string name="include_gesture">Include Gesture</string>
 
 </resources>

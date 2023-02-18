@@ -27,5 +27,7 @@
     <string name="activity_id_textedit_hint">ID Действия (число)</string>
     <string name="voice_command">Голосовая команда</string>
     <string name="settings_header">Settings</string>
+    <string name="include_audio">Include Audio</string>
+    <string name="include_gesture">Include Gesture</string>
 
 </resources>

@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context="org.nssae.demo.AdditionalCommandSettingsActivity">
 
-    <Switch
+    <CheckBox
         android:id="@+id/hasAudio"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Include Audio"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/include_audio"
+        app:layout_constraintEnd_toEndOf="@+id/usersString"
+        app:layout_constraintStart_toEndOf="@+id/hasGesture"
         app:layout_constraintTop_toBottomOf="@id/usersString" />
 
     <CheckBox
@@ -20,36 +22,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/finger4"
-        app:layout_constraintTop_toBottomOf="@id/hasGesture" />
+        app:layout_constraintTop_toTopOf="@+id/finger4" />
 
     <CheckBox
         android:id="@+id/finger4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/finger3"
-        app:layout_constraintTop_toBottomOf="@id/hasGesture" />
+        app:layout_constraintTop_toTopOf="@+id/finger3" />
 
     <CheckBox
         android:id="@+id/finger3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/finger2"
-        app:layout_constraintTop_toBottomOf="@id/hasGesture" />
+        app:layout_constraintTop_toTopOf="@+id/finger2" />
 
     <CheckBox
         android:id="@+id/finger2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/finger1"
-        app:layout_constraintTop_toBottomOf="@id/hasGesture" />
+        app:layout_constraintTop_toTopOf="@+id/finger1" />
 
     <Button
         android:id="@+id/settings"
@@ -57,11 +55,11 @@
         android:layout_height="wrap_content"
         android:text="@string/button_sett"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintEnd_toEndOf="@+id/apply"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <EditText
         android:id="@+id/activityId"
@@ -82,45 +80,41 @@
         android:id="@+id/usersString"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:autofillHints="Voice command"
         android:ems="10"
         android:hint="@string/voice_command"
         android:inputType="textPersonName"
         android:text="@string/slangStartMusic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityId"
-        android:autofillHints="Voice command" />
+        app:layout_constraintEnd_toEndOf="@+id/activityId"
+        app:layout_constraintStart_toStartOf="@+id/activityId"
+        app:layout_constraintTop_toBottomOf="@+id/activityId" />
 
     <Button
         android:id="@+id/apply"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:text="@string/apply"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/hasAudio"
+        app:layout_constraintStart_toStartOf="@+id/finger1"
         app:layout_constraintTop_toBottomOf="@id/finger1" />
 
-    <Switch
+    <CheckBox
         android:id="@+id/hasGesture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Include Gesture"
-        app:layout_constraintTop_toBottomOf="@id/usersString"
-        tools:layout_editor_absoluteX="16dp" />
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/include_gesture"
+        app:layout_constraintStart_toStartOf="@+id/usersString"
+        app:layout_constraintTop_toBottomOf="@+id/usersString" />
 
     <CheckBox
         android:id="@+id/finger1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/hasGesture"
         app:layout_constraintTop_toBottomOf="@id/hasGesture" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

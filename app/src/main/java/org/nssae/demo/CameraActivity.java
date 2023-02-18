@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-/** Main activity of MediaPipe Hands app. */
 public class CameraActivity extends ComponentActivity {
     public CommandRecognition cr;
     private Hands hands;
@@ -58,7 +57,7 @@ public class CameraActivity extends ComponentActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera);
 
         cr = new CommandRecognition();
         cr.createCommandRecognition();

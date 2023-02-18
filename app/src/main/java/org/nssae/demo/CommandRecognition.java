@@ -1,10 +1,8 @@
 package org.nssae.demo;
 
 import android.content.Context;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +15,7 @@ import java.util.Map;
 
 public class CommandRecognition {
 
-    public String keyword = "камаз";
+    public final String KEYWORD = "камаз";
     private int iPoint;
     private boolean ended = true;
     public Context context;
@@ -108,7 +106,7 @@ public class CommandRecognition {
             iPoint = 0;
             return false;
         }
-        int i = value.lastIndexOf(keyword) + keyword.length();
+        int i = value.lastIndexOf(KEYWORD) + KEYWORD.length();
         if (i <= iPoint) return false;
         else iPoint = i;
         return true;
@@ -116,26 +114,13 @@ public class CommandRecognition {
 
 
     public void checkSimilarities(int key, String stored, String received) {
-//        System.out.println(received);
         for (String w : stored.split(" ")) {
-
-//            System.out.println(received);
-//            System.out.println(stored);
-
             if (w.substring(1).equals("камаз")) w = w.substring(1);
             w = sanitizeString(w);
             stored = sanitizeString(stored);
             received = sanitizeString(received);
 
-            if (!received.contains(w))
-            {
-//                System.out.println(received);
-//                System.out.println(w);
-                return;
-            }
-            System.out.println(w);
-            System.out.println(received);
-            System.out.println(received.contains(w));
+            if (!received.contains(w)) return;
         }
         System.out.println("Received a matching phrase");
         ActionNotifications.spreadAction(key, context);
@@ -143,12 +128,8 @@ public class CommandRecognition {
 
     @NonNull
     private String sanitizeString(String w) {
-        if (w.endsWith("\"")){
-            w = w.substring(0, w.length() - 1);
-        }
-        if (w.startsWith("\"")){
-            w = w.substring(1);
-        }
+        if (w.endsWith("\"")) w = w.substring(0, w.length() - 1);
+        if (w.startsWith("\"")) w = w.substring(1);
         return w;
     }
 
@@ -159,26 +140,6 @@ public class CommandRecognition {
         if (slipperyFingers.get(2)) res += 4;
         if (slipperyFingers.get(3)) res += 2;
         if (slipperyFingers.get(4)) res += 1;
-        return res;
-    }
-
-    public int convertCurrentMask() {
-        int res = 0;
-        if (slipperyFingers.get(0)) res += 10000;
-        if (slipperyFingers.get(1)) res += 1000;
-        if (slipperyFingers.get(2)) res += 100;
-        if (slipperyFingers.get(3)) res += 10;
-        if (slipperyFingers.get(4)) res += 1;
-        return res;
-    }
-
-    public int convertBooleansToDec(List<Boolean> bools) {
-        int res = 0;
-        if (bools.get(0)) res += 16;
-        if (bools.get(1)) res += 8;
-        if (bools.get(2)) res += 4;
-        if (bools.get(3)) res += 2;
-        if (bools.get(4)) res += 1;
         return res;
     }
 
