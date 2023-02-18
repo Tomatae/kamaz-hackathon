@@ -1,3 +1,0 @@
-# Openfst doesn't like CR+LF
-
-words.txt -crlf
